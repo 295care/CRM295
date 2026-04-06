@@ -1,59 +1,189 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CRM295 - Lead & Prospect Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+CRM295 adalah aplikasi CRM sederhana berbasis Laravel 12 untuk tracking prospek sales dari tahap Cold sampai Deal/Lost.
 
-## About Laravel
+## Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Lead management: create, list, detail, edit, delete
+- Activity tracking: histori call/meeting/WA/email + next follow up
+- Quotation tracking: pending, nego, accepted, rejected
+- Status lifecycle: Cold, Warm, Hot, Deal, Lost
+- Follow-up tasks: due, overdue, today
+- Dashboard KPI operasional
+- Reporting:
+  - Closing vs Lost per bulan
+  - Performa per sales
+  - Top client berdasarkan nilai quotation
+  - Funnel conversion rate (Cold->Warm, Warm->Hot, Hot->Deal)
+  - Export lead CSV
+  - Export sales monthly CSV
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.2+
+- Laravel 12
+- Sanctum
+- SQLite/MySQL (testing default sqlite in-memory)
 
-## Learning Laravel
+## Setup Cepat
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+1. Install dependency
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+```
 
-## Laravel Sponsors
+2. Buat environment file
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+copy .env.example .env
+php artisan key:generate
+```
 
-### Premium Partners
+3. Migrasi dan seeding
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-## Contributing
+4. Jalankan aplikasi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+php artisan serve
+```
 
-## Code of Conduct
+Akses aplikasi di `http://127.0.0.1:8000`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Akun Seed Default
 
-## Security Vulnerabilities
+Seeder membuat 3 akun user awal:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- admin@crm.test / password123
+- sales1@crm.test / password123
+- sales2@crm.test / password123
 
-## License
+## Halaman Web
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Semua halaman web CRM sekarang dilindungi login session (`auth` middleware). Guest akan diarahkan ke `/login`.
+
+- `/dashboard`
+- `/leads`
+- `/activities`
+- `/quotations`
+- `/follow-ups`
+- `/reports`
+- `/login`
+
+Halaman reports mendukung filter:
+
+- Year
+- Sales
+- Status lead
+- Sumber lead
+- Date range (from-to)
+
+## API Ringkas
+
+Base path: `/api`
+
+- `GET /api/dashboard`
+- `GET /api/reports/summary`
+- `GET /api/reports/sales-monthly`
+- `GET /api/reports/funnel-conversion`
+- `GET /api/reports/followups-health`
+- CRUD `/api/leads`
+- CRUD `/api/activities`
+- CRUD `/api/quotations`
+
+Catatan:
+
+- API dilindungi `auth:sanctum`
+- Quotation hanya dapat dibuat untuk lead status `Hot`
+- Quotation `accepted` akan otomatis mengubah lead menjadi `Deal`
+- Perubahan status lead tercatat ke `lead_status_histories`
+
+Contoh query API reports:
+
+- `year`, `sales_id`, `status`, `sumber_lead`
+- `from_date` dan `to_date` untuk date-range
+
+## Reminder Overdue Follow-up
+
+Tersedia command reminder digest overdue:
+
+```bash
+php artisan crm:followups:overdue-digest
+```
+
+Command ini dijadwalkan harian pukul `08:00` dan melakukan:
+
+- Rekap overdue follow-up per sales
+- Logging digest ke aplikasi
+- Pengiriman email digest ke email sales (jika ada)
+- Pengiriman payload webhook (WA placeholder) bila `CRM_FOLLOWUP_WEBHOOK_URL` diisi
+- Retry webhook otomatis 2x bila request gagal sementara
+
+Contoh payload webhook:
+
+```json
+{
+  "channel": "wa-placeholder",
+  "type": "overdue_followup_digest",
+  "sales": {
+    "id": 2,
+    "name": "Sales 1",
+    "email": "sales1@crm.test"
+  },
+  "overdue_count": 3,
+  "message": "Reminder overdue follow-up ...",
+  "sent_at": "2026-04-06T08:00:00+07:00"
+}
+```
+
+Contoh simulasi webhook lokal dengan endpoint mock:
+
+```bash
+php artisan crm:followups:overdue-digest --date=2026-04-06
+```
+
+Set env berikut untuk mengarahkan payload ke webhook gateway/placeholder:
+
+```env
+CRM_FOLLOWUP_WEBHOOK_URL=https://your-webhook-endpoint.test/crm/followups
+```
+
+Untuk menjalankan scheduler di environment lokal/dev:
+
+```bash
+php artisan schedule:work
+```
+
+## Workflow Bisnis
+
+1. Input lead baru
+2. Follow up melalui activity
+3. Ubah status lead Cold -> Warm -> Hot
+4. Tambahkan quotation pada lead Hot
+5. Jika quotation accepted, lead pindah ke Deal otomatis
+6. Pantau overdue follow up di Follow Up Tasks
+7. Pantau performa di Reports
+
+## Menjalankan Test
+
+```bash
+php artisan test
+```
+
+Saat ini mencakup test API workflow inti dan test web report/export.
+Termasuk juga test autentikasi web (login, logout, proteksi guest).
+
+## Struktur Modul Inti
+
+- Leads
+- Activities
+- Quotations
+- Lead Status Histories
+- Reports
+
+Dokumen tambahan blueprint MVP tersedia di `docs/mvp-blueprint.md`.

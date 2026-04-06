@@ -25,7 +25,7 @@ class LeadController extends Controller
         $lead->statusHistories()->create([
             'from_status' => null,
             'to_status' => $lead->status,
-            'changed_by' => $lead->assigned_to,
+            'changed_by' => $request->user()?->id ?? $lead->assigned_to,
             'changed_at' => now(),
             'note' => 'Status awal lead dibuat',
         ]);
@@ -58,7 +58,7 @@ class LeadController extends Controller
             $lead->statusHistories()->create([
                 'from_status' => $oldStatus,
                 'to_status' => $lead->status,
-                'changed_by' => $lead->assigned_to,
+                'changed_by' => $request->user()?->id ?? $lead->assigned_to,
                 'changed_at' => now(),
                 'note' => 'Status lead diubah',
             ]);

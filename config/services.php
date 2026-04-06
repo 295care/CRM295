@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'crm' => [
+        'followup_webhook_url' => env('CRM_FOLLOWUP_WEBHOOK_URL'),
+    ],
+
 ];

@@ -19,6 +19,11 @@ class Quotation extends Model
         'keterangan',
     ];
 
+    protected $casts = [
+        'tanggal_penawaran' => 'date',
+        'nilai_penawaran' => 'decimal:2',
+    ];
+
     public function lead(): BelongsTo
     {
         return $this->belongsTo(Lead::class);

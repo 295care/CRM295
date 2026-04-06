@@ -81,6 +81,60 @@
             line-height: 1.6;
         }
 
+        .hero-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .auth-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .auth-chip {
+            border: 1px solid rgba(248, 255, 253, 0.35);
+            border-radius: 999px;
+            background: rgba(248, 255, 253, 0.12);
+            padding: 7px 11px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(248, 255, 253, 0.35);
+            border-radius: 999px;
+            background: rgba(248, 255, 253, 0.08);
+            color: #f8fffd;
+            padding: 7px 11px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .hero-nav {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hero-nav a {
+            text-decoration: none;
+            color: #f8fffd;
+            border: 1px solid rgba(248, 255, 253, 0.35);
+            border-radius: 999px;
+            padding: 7px 12px;
+            font-size: 13px;
+            font-weight: 700;
+            background: rgba(248, 255, 253, 0.08);
+        }
+
         .grid {
             margin-top: 18px;
             display: grid;
@@ -274,8 +328,26 @@
 <body>
     <div class="wrap">
         <section class="hero">
-            <h1>CRM Pipeline Dashboard</h1>
-            <p>Ringkasan prospek, performa sales, dan follow-up aktif untuk membantu tim melihat kondisi funnel harian dengan cepat.</p>
+            <div class="hero-top">
+                <div>
+                    <h1>CRM Pipeline Dashboard</h1>
+                    <p>Ringkasan prospek, performa sales, dan follow-up aktif untuk membantu tim melihat kondisi funnel harian dengan cepat.</p>
+                </div>
+                <div class="auth-box">
+                    <span class="auth-chip">{{ auth()->user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="logout-btn" type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+            <nav class="hero-nav">
+                <a href="{{ route('leads.index') }}">Leads</a>
+                <a href="{{ route('activities.index') }}">Activities</a>
+                <a href="{{ route('quotations.index') }}">Quotations</a>
+                <a href="{{ route('followups.index') }}">Follow Up Tasks</a>
+                <a href="{{ route('reports.index') }}">Reports</a>
+            </nav>
         </section>
 
         <section class="grid">

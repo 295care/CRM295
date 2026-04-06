@@ -19,6 +19,10 @@ class LeadStatusHistory extends Model
         'note',
     ];
 
+    protected $casts = [
+        'changed_at' => 'datetime',
+    ];
+
     public function lead(): BelongsTo
     {
         return $this->belongsTo(Lead::class);
