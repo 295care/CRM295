@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,12 +17,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        $seedPassword = app()->environment(['local', 'testing'])
-            ? 'password123'
-            : Str::password(24);
 
         User::updateOrCreate(
-            ['email' => 'superadmin@crm.test'],
+            ['email' => 'superadmin@295.com'],
             [
                 'name' => 'Super Admin CRM',
                 'password' => Hash::make('Rewdcxz@295'),
@@ -32,28 +28,28 @@ class DatabaseSeeder extends Seeder
         );
 
         User::updateOrCreate(
-            ['email' => 'admin@crm.test'],
+            ['email' => 'admin@295.com'],
             [
                 'name' => 'Admin CRM',
-                'password' => Hash::make($seedPassword),
+                'password' => Hash::make('Rewdcxz@admin'),
                 'role' => 'admin',
             ]
         );
 
         User::updateOrCreate(
-            ['email' => 'sales1@crm.test'],
+            ['email' => 'sales1@295.com'],
             [
                 'name' => 'Sales 1',
-                'password' => Hash::make($seedPassword),
+                'password' => Hash::make('Rewdcxz@sales'),
                 'role' => 'sales',
             ]
         );
 
         User::updateOrCreate(
-            ['email' => 'sales2@crm.test'],
+            ['email' => 'sales2@295.com'],
             [
                 'name' => 'Sales 2',
-                'password' => Hash::make($seedPassword),
+                'password' => Hash::make('Rewdcxz@sales'),
                 'role' => 'sales',
             ]
         );
