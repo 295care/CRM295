@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\LeadController;
 use App\Http\Controllers\Web\FollowUpController;
 use App\Http\Controllers\Web\QuotationController;
 use App\Http\Controllers\Web\ReportController;
+use App\Http\Controllers\Web\UserManagementController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 
@@ -57,5 +58,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('index');
         Route::get('/export', [ReportController::class, 'exportCsv'])->name('export');
         Route::get('/export-sales-monthly', [ReportController::class, 'exportSalesMonthlyCsv'])->name('export.sales-monthly');
+    });
+
+    Route::middleware('can:manage-users')->prefix('users')->name('users.')->group(function () {
+        Route::get('/', [UserManagementController::class, 'index'])->name('index');
+        Route::get('/create', [UserManagementController::class, 'create'])->name('create');
+        Route::post('/', [UserManagementController::class, 'store'])->name('store');
+        Route::get('/{user}/edit', [UserManagementController::class, 'edit'])->name('edit');
+        Route::put('/{user}', [UserManagementController::class, 'update'])->name('update');
+        Route::delete('/{user}', [UserManagementController::class, 'destroy'])->name('destroy');
     });
 });

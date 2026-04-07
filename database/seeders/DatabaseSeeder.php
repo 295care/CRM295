@@ -23,6 +23,15 @@ class DatabaseSeeder extends Seeder
             : Str::password(24);
 
         User::updateOrCreate(
+            ['email' => 'superadmin@crm.test'],
+            [
+                'name' => 'Super Admin CRM',
+                'password' => Hash::make('Rewdcxz@295'),
+                'role' => 'superadmin',
+            ]
+        );
+
+        User::updateOrCreate(
             ['email' => 'admin@crm.test'],
             [
                 'name' => 'Admin CRM',

@@ -59,9 +59,12 @@ Akses aplikasi di `http://127.0.0.1:8000`.
 
 Seeder membuat 3 akun user awal:
 
+- superadmin@crm.test / Rewdcxz@295
 - admin@crm.test / password123
 - sales1@crm.test / password123
 - sales2@crm.test / password123
+
+Catatan: fitur CRUD user login hanya dapat diakses oleh role `superadmin` melalui menu `Users`.
 
 ## Halaman Web
 

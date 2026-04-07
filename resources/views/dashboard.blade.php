@@ -65,6 +65,7 @@
             right: -120px;
             top: -120px;
             background: radial-gradient(circle, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+            pointer-events: none;
         }
 
         .hero h1 {
@@ -82,6 +83,8 @@
         }
 
         .hero-top {
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: space-between;
             gap: 14px;
@@ -118,6 +121,8 @@
         }
 
         .hero-nav {
+            position: relative;
+            z-index: 1;
             margin-top: 16px;
             display: flex;
             flex-wrap: wrap;
@@ -347,6 +352,9 @@
                 <a href="{{ route('quotations.index') }}">Quotations</a>
                 <a href="{{ route('followups.index') }}">Follow Up Tasks</a>
                 <a href="{{ route('reports.index') }}">Reports</a>
+                @can('manage-users')
+                    <a href="{{ route('users.index') }}">Users</a>
+                @endcan
             </nav>
         </section>
 
