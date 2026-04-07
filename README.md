@@ -57,12 +57,12 @@ Akses aplikasi di `http://127.0.0.1:8000`.
 
 ## Akun Seed Default
 
-Seeder membuat 3 akun user awal:
+Seeder membuat akun user awal:
 
-- superadmin@crm.test / Rewdcxz@295
-- admin@crm.test / password123
-- sales1@crm.test / password123
-- sales2@crm.test / password123
+- superadmin@295.com / Rewdcxz@295
+- admin@295.com / Rewdcxz@admin
+- sales1@295.com / Rewdcxz@sales
+- sales2@295.com / Rewdcxz@sales
 
 Catatan: fitur CRUD user login hanya dapat diakses oleh role `superadmin` melalui menu `Users`.
 
@@ -217,3 +217,6 @@ Catatan:
 - Reports
 
 Dokumen tambahan blueprint MVP tersedia di `docs/mvp-blueprint.md`.
+
+Panduan deploy VPS tanpa Node dengan best practice (Pola B) tersedia di `docs/deploy-pattern-b.md`.
+Alternatif build-artifact workflow tersedia di `docs/deploy-pattern-a.md`.
