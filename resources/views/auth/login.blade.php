@@ -3,188 +3,227 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login CRM295</title>
+    <title>Login - CRM 295 Solution</title>
+
+    {{-- ===== SEO & Open Graph (WhatsApp / Social Preview) ===== --}}
+    <meta name="title" content="Login - CRM 295 Solution">
+    <meta name="description" content="Sistem CRM internal 295 Solution untuk manajemen klien dan tracking penawaran untuk performa tim sales yang lebih baik.">
+
+    {{-- Open Graph / Facebook / WhatsApp --}}
+    <meta property="og:type"         content="website">
+    <meta property="og:url"          content="{{ url()->current() }}">
+    <meta property="og:title"        content="Login - CRM 295 Solution">
+    <meta property="og:description"  content="Sistem CRM internal 295 Solution untuk manajemen klien dan tracking penawaran untuk performa tim sales yang lebih baik.">
+    <meta property="og:image"        content="{{ asset('images/og-preview.png') }}">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name"    content="295 Solution">
+    <meta property="og:locale"       content="id_ID">
+
+    {{-- Twitter --}}
+    <meta property="twitter:card"        content="summary_large_image">
+    <meta property="twitter:url"         content="{{ url()->current() }}">
+    <meta property="twitter:title"       content="Login - CRM 295 Solution">
+    <meta property="twitter:description" content="Sistem CRM internal 295 Solution untuk manajemen klien dan tracking penawaran untuk performa tim." >
+    <meta property="twitter:image"       content="{{ asset('images/og-preview.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-start: #f6efe5;
-            --bg-end: #ecf2e8;
-            --ink: #232420;
-            --muted: #5f665b;
-            --line: #d8ddcf;
-            --panel: #fffef9;
-            --accent: #0b7285;
-            --accent-strong: #0a5e6f;
-            --danger: #c33131;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { box-sizing: border-box; }
 
         body {
             margin: 0;
             min-height: 100vh;
-            display: grid;
-            place-items: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            font-family: 'Manrope', sans-serif;
-            color: var(--ink);
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #1a3a42;
+        }
+
+        /* Subtle background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
             background:
-                radial-gradient(circle at 82% 12%, #f7dabb 0, transparent 25%),
-                radial-gradient(circle at 15% 25%, #d5ece0 0, transparent 28%),
-                linear-gradient(140deg, var(--bg-start), var(--bg-end));
+                radial-gradient(ellipse at 20% 50%, rgba(26,107,116,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(15,60,70,0.4) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .login-wrap {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Brand mark above card */
+        .brand-mark {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .brand-mark h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.02em;
+        }
+
+        .brand-mark p {
+            margin: 6px 0 0;
+            color: rgba(255,255,255,0.55);
+            font-size: 13px;
         }
 
         .card {
-            width: min(440px, 100%);
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 28px;
-            box-shadow: 0 22px 42px rgba(35, 36, 32, 0.08);
+            background: #fff;
+            border-radius: 14px;
+            padding: 32px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.35);
         }
 
-        h1 {
-            margin: 0;
-            font-family: 'Sora', sans-serif;
-            font-size: clamp(24px, 4vw, 32px);
-            letter-spacing: -0.03em;
+        .card-title {
+            margin: 0 0 6px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e2022;
         }
 
-        .subtitle {
-            margin: 10px 0 22px;
-            color: var(--muted);
-            line-height: 1.55;
+        .card-subtitle {
+            margin: 0 0 24px;
+            color: #8a929e;
+            font-size: 13px;
         }
 
-        .alert {
-            margin-bottom: 14px;
-            border: 1px solid color-mix(in srgb, var(--danger) 45%, white 55%);
-            background: color-mix(in srgb, var(--danger) 10%, white 90%);
-            color: #751b1b;
-            border-radius: 12px;
-            padding: 10px 12px;
-            font-size: 14px;
+        .alert-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            margin-bottom: 18px;
         }
 
-        .field {
-            margin-bottom: 14px;
+        .form-group {
+            margin-bottom: 16px;
         }
 
         label {
             display: block;
             margin-bottom: 6px;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #4b5563;
         }
 
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 12px 13px;
-            font-size: 15px;
-            outline: none;
-            background: #fff;
-            transition: border-color 140ms ease, box-shadow 140ms ease;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            background: #f9fafb;
+            color: #1f2937;
+            transition: border-color 0.15s, box-shadow 0.15s;
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.14);
+            outline: none;
+            border-color: #1a6b74;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(26,107,116,0.12);
         }
 
-        .row {
+        .remember-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin: 10px 0 16px;
-        }
-
-        .remember {
-            display: inline-flex;
-            align-items: center;
             gap: 8px;
-            font-size: 14px;
-            color: var(--muted);
+            margin: 16px 0 20px;
         }
 
-        .btn {
-            width: 100%;
-            border: 0;
-            border-radius: 12px;
-            padding: 12px 14px;
-            font-size: 15px;
-            font-weight: 800;
-            color: #f8fffd;
-            background: linear-gradient(120deg, var(--accent), var(--accent-strong));
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(11, 114, 133, 0.24);
-        }
-
-        .btn:hover {
-            filter: brightness(1.03);
-        }
-
-        .helper {
-            margin-top: 14px;
-            color: var(--muted);
+        .remember-row label {
+            margin: 0;
             font-size: 13px;
-            line-height: 1.5;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #6b7280;
+            font-weight: 500;
+            cursor: pointer;
         }
 
-        .helper code {
-            background: #f4f6ef;
-            border: 1px solid #e6eadf;
-            border-radius: 6px;
-            padding: 1px 5px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        .btn-login {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 11px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            color: #fff;
+            background: #1a6b74;
+            cursor: pointer;
+            transition: background 0.15s, box-shadow 0.15s;
+        }
+
+        .btn-login:hover {
+            background: #155d66;
+            box-shadow: 0 4px 14px rgba(26,107,116,0.3);
         }
     </style>
 </head>
 <body>
-    <main class="card">
-        <h1>Login CRM295</h1>
-        <p class="subtitle">Masuk dulu untuk mengakses dashboard, leads, aktivitas, quotation, follow-up, dan laporan.</p>
+    <div class="login-wrap">
+        <div class="brand-mark">
+            <h1>CRM 295</h1>
+            <p>Customer Relationship Management</p>
+        </div>
 
-        @if ($errors->any())
-            <div class="alert">
-                <strong>Login gagal.</strong>
-                <div>{{ $errors->first() }}</div>
-            </div>
-        @endif
+        <div class="card">
+            <h2 class="card-title">Masuk ke Akun</h2>
+            <p class="card-subtitle">Gunakan username dan password yang diberikan admin.</p>
 
-        <form method="POST" action="{{ route('login.store') }}">
-            @csrf
-            <div class="field">
-                <label for="username">Username</label>
-                <input id="username" name="username" type="text" value="{{ old('username') }}" autocomplete="username" required autofocus>
-                @error('username')
-                    <div style="color:var(--danger); font-size:13px; margin-top:4px;">{{ $message }}</div>
-                @enderror
-            </div>
+            @if ($errors->any())
+                <div class="alert-error">
+                    <strong>Login gagal.</strong> {{ $errors->first() }}
+                </div>
+            @endif
 
-            <div class="field">
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" autocomplete="current-password" required>
-            </div>
+            <form method="POST" action="{{ route('login.store') }}">
+                @csrf
 
-            <div class="row">
-                <label class="remember" for="remember">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" value="{{ old('username') }}" autocomplete="username" required autofocus placeholder="Masukkan username Anda">
+                    @error('username')
+                        <div style="color:#dc2626; font-size:12px; margin-top:4px;">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="••••••••">
+                </div>
+
+                <div class="remember-row">
                     <input id="remember" name="remember" type="checkbox" value="1" {{ old('remember') ? 'checked' : '' }}>
-                    Ingat saya
-                </label>
-            </div>
+                    <label for="remember">Ingat saya</label>
+                </div>
 
-            <button class="btn" type="submit">Masuk ke CRM</button>
-        </form>
-
-    </main>
+                <button class="btn-login" type="submit">Masuk ke CRM</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -4,7 +4,29 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>CRM 295 Solution - Manajemen Klien & Penawaran</title>
+
+        {{-- ===== SEO & Open Graph (WhatsApp / Social Preview) ===== --}}
+        <meta name="title" content="CRM 295 Solution - Manajemen Klien & Penawaran">
+        <meta name="description" content="Sistem CRM 295 Solution memberikan solusi terbaik untuk manajemen klien, melacak penawaran, dan menganalisa performa penjualan secara real-time.">
+
+        {{-- Open Graph / Facebook / WhatsApp --}}
+        <meta property="og:type"         content="website">
+        <meta property="og:url"          content="{{ url()->current() }}">
+        <meta property="og:title"        content="CRM 295 Solution - Manajemen Klien & Penawaran">
+        <meta property="og:description"  content="Sistem CRM 295 Solution memberikan solusi terbaik untuk manajemen klien, melacak penawaran, dan menganalisa performa penjualan secara real-time.">
+        <meta property="og:image"        content="{{ asset('images/og-preview.png') }}">
+        <meta property="og:image:width"  content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:site_name"    content="295 Solution">
+        <meta property="og:locale"       content="id_ID">
+
+        {{-- Twitter --}}
+        <meta property="twitter:card"        content="summary_large_image">
+        <meta property="twitter:url"         content="{{ url()->current() }}">
+        <meta property="twitter:title"       content="CRM 295 Solution - Manajemen Klien & Penawaran">
+        <meta property="twitter:description" content="Sistem CRM 295 Solution memberikan solusi terbaik untuk manajemen klien, melacak penawaran, dan menganalisa performa penjualan.">
+        <meta property="twitter:image"       content="{{ asset('images/og-preview.png') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

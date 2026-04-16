@@ -6,7 +6,8 @@
     <title>Reports - CRM295</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    @include('partials.app-styles')
     @include('partials.sidebar-styles')
     <style>
         :root {
@@ -25,15 +26,15 @@
         body {
             margin: 0;
             min-height: 100vh;
-            font-family: 'Inter', 'Manrope', sans-serif;
-            color: var(--ink);
-            background: #f8f9fa;
+            font-family: 'Inter', sans-serif;
+            color: #1e2022;
+            background: #f4f6f8;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 32px 24px 60px;
+            padding: 32px 28px 60px;
         }
 
         .top {
@@ -47,11 +48,10 @@
 
         h1 {
             margin: 0;
-            font-family: 'Sora', sans-serif;
-            font-size: clamp(28px, 4vw, 36px);
+            font-size: 26px;
             font-weight: 800;
-            letter-spacing: -0.04em;
-            color: #1a1d1a;
+            letter-spacing: -0.02em;
+            color: #1e2022;
         }
 
         .btn {
@@ -92,12 +92,10 @@
 
         .panel {
             background: #ffffff;
-            border: 1px solid #e9ecef;
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            margin-bottom: 24px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
         }
 
         .panel h2 {
@@ -468,7 +466,10 @@
         <main class="app-main">
     <div class="container">
         <div class="top">
-            <h1>Reporting Center</h1>
+            <div>
+                <h1>Reporting Center</h1>
+                <p style="margin:4px 0 0; color:#8a929e; font-size:14px;">Analisa performa quotation dan client tim Anda.</p>
+            </div>
         </div>
 
         <section class="panel filter-section">
