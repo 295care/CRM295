@@ -22,6 +22,14 @@ class DashboardController extends Controller
             ->limit(8)
             ->get();
             
+        $jenisProjekCounts = \App\Models\Quotation::query()
+            ->selectRaw('nama_projek, count(*) as total')
+            ->whereNotNull('nama_projek')
+            ->where('nama_projek', '!=', '')
+            ->groupBy('nama_projek')
+            ->orderByDesc('total')
+            ->get();
+            
         $quotationOverviewQuery = \App\Models\Quotation::query();
         
         $overview = [
@@ -37,6 +45,7 @@ class DashboardController extends Controller
             'totalClients' => $totalClients,
             'sourceCounts' => $sourceCounts,
             'latestClients' => $latestClients,
+            'jenisProjekCounts' => $jenisProjekCounts,
             'overview' => $overview,
         ]);
     }

@@ -57,7 +57,8 @@
         
         @media (min-width: 960px) {
             .grid { align-items: start; grid-template-columns: repeat(12, minmax(0, 1fr)); }
-            .sources { grid-column: span 12; }
+            .sources { grid-column: span 6; }
+            .jenis-projek { grid-column: span 6; }
             .latest { grid-column: span 12; }
         }
 
@@ -206,6 +207,22 @@
                                 <li class="row">
                                     <strong style="font-size: 15px;">{{ ucfirst($row->sumber_client) }}</strong>
                                     <span class="chip">{{ number_format($row->total) }} Client</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </article>
+
+                <article class="card jenis-projek">
+                    <h2 class="title" style="margin-bottom: 20px;">Jenis Projek</h2>
+                    @if ($jenisProjekCounts->isEmpty())
+                        <div class="empty">Belum ada data jenis projek.</div>
+                    @else
+                        <ul style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                            @foreach ($jenisProjekCounts as $row)
+                                <li class="row">
+                                    <strong style="font-size: 15px;">{{ ucfirst($row->nama_projek) }}</strong>
+                                    <span class="chip" style="background:#e0f2fe; color:#0284c7;">{{ number_format($row->total) }} Projek</span>
                                 </li>
                             @endforeach
                         </ul>
