@@ -16,41 +16,54 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Update / buat akun berdasarkan email (aman untuk data yang sudah ada)
         User::updateOrCreate(
             ['email' => 'superadmin@295.com'],
             [
-                'name' => 'Super Admin CRM',
-                'password' => Hash::make('Rewdcxz@295'),
-                'role' => 'superadmin',
-            ]
-        );
-
-        User::updateOrCreate(
-            ['email' => 'admin@295.com'],
-            [
-                'name' => 'Admin CRM',
+                'name'     => 'Super Admin',
+                'username' => 'superadmin',
                 'password' => Hash::make('Rewdcxz@admin'),
-                'role' => 'admin',
+                'role'     => 'superadmin',
             ]
         );
 
         User::updateOrCreate(
-            ['email' => 'sales1@295.com'],
+            ['email' => 'bos@295.com'],
             [
-                'name' => 'Sales 1',
-                'password' => Hash::make('Rewdcxz@sales'),
-                'role' => 'sales',
+                'name'     => 'Bos',
+                'username' => 'bos',
+                'password' => Hash::make('Rewdcxz@roy'),
+                'role'     => 'admin',
             ]
         );
 
         User::updateOrCreate(
-            ['email' => 'sales2@295.com'],
+            ['email' => 'restu@295.com'],
             [
-                'name' => 'Sales 2',
+                'name'     => 'Restu',
+                'username' => 'restu',
+                'password' => Hash::make('Rewdcxz@dm'),
+                'role'     => 'admin',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'husna@295.com'],
+            [
+                'name'     => 'Husna',
+                'username' => 'husna',
                 'password' => Hash::make('Rewdcxz@sales'),
-                'role' => 'sales',
+                'role'     => 'sales',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'agus@295.com'],
+            [
+                'name'     => 'Agus',
+                'username' => 'agus',
+                'password' => Hash::make('Rewdcxz@sales1'),
+                'role'     => 'sales',
             ]
         );
     }

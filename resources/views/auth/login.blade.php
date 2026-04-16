@@ -81,7 +81,7 @@
             font-weight: 700;
         }
 
-        input[type="email"],
+        input[type="text"],
         input[type="password"] {
             width: 100%;
             border: 1px solid var(--line);
@@ -93,7 +93,7 @@
             transition: border-color 140ms ease, box-shadow 140ms ease;
         }
 
-        input[type="email"]:focus,
+        input[type="text"]:focus,
         input[type="password"]:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.14);
@@ -163,8 +163,11 @@
         <form method="POST" action="{{ route('login.store') }}">
             @csrf
             <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="username" required autofocus>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" value="{{ old('username') }}" autocomplete="username" required autofocus>
+                @error('username')
+                    <div style="color:var(--danger); font-size:13px; margin-top:4px;">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="field">
