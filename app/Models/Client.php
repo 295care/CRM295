@@ -20,6 +20,7 @@ class Client extends Model
         'sosmed',
         'flyering',
         'offline',
+        'affiliate',
     ];
 
     public const BUSINESS_TYPE_OPTIONS = [
