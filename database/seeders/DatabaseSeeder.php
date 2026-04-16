@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
                 'name'     => 'Restu',
                 'username' => 'restu',
                 'password' => Hash::make('Rewdcxz@dm'),
-                'role'     => 'admin',
+                'role'     => 'sales',
             ]
         );
 

@@ -18,7 +18,7 @@ class QuotationController extends Controller
         $this->authorize('create', Quotation::class);
 
         $clientId = $request->query('client_id');
-        $clients = \App\Models\Client::orderBy('nama')->get();
+        $clients = \App\Models\Client::orderBy('nama')->get(); // semua client bisa dipilih
 
         return view('quotations.create', [
             'clients' => $clients,
@@ -46,6 +46,7 @@ class QuotationController extends Controller
         $quotation->nilai_penawaran = $validated['nilai_penawaran'];
         $quotation->hpp = $validated['hpp'];
         $quotation->status = $validated['status'];
+        $quotation->created_by = $request->user()->id;
         $quotation->save();
 
         $quotation->histories()->create([
@@ -67,6 +68,11 @@ class QuotationController extends Controller
         $user = $request->user();
         $query = Quotation::query()->with('client:id,nama,perusahaan');
 
+        // Non-admin hanya bisa lihat quotation miliknya
+        if (! $user->isAdmin()) {
+            $query->where('created_by', $user->id);
+        }
+
         $status = $request->query('status');
         $search = trim((string) $request->query('q', ''));
 
@@ -86,6 +92,9 @@ class QuotationController extends Controller
         $quotations = $query->latest('tanggal_penawaran')->paginate(15)->withQueryString();
 
         $summaryQuery = Quotation::query();
+        if (! $user->isAdmin()) {
+            $summaryQuery->where('created_by', $user->id);
+        }
 
         $summary = [
             'total' => (clone $summaryQuery)->count(),

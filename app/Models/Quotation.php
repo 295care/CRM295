@@ -20,6 +20,7 @@ class Quotation extends Model
         'hpp',
         'status',
         'keterangan',
+        'created_by',
     ];
 
     protected $casts = [

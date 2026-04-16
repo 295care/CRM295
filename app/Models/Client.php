@@ -37,6 +37,7 @@ class Client extends Model
         'nomor_wa',
         'sumber_client',
         'jenis_bisnis',
+        'created_by',
     ];
 
     public function quotations(): HasMany

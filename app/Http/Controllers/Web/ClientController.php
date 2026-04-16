@@ -45,10 +45,18 @@ class ClientController extends Controller
         ]);
     }
 
-    public function show(Client $client): View
+    public function show(Request $request, Client $client): View
     {
+        $user = $request->user();
+
         $client->load([
-            'quotations' => fn ($query) => $query->latest('tanggal_penawaran')->latest('id'),
+            'quotations' => function ($query) use ($user) {
+                $query->latest('tanggal_penawaran')->latest('id');
+                // Non-admin hanya lihat quotation miliknya di halaman ini
+                if (! $user->isAdmin()) {
+                    $query->where('created_by', $user->id);
+                }
+            },
         ]);
 
         return view('clients.show', [
@@ -58,7 +66,9 @@ class ClientController extends Controller
 
     public function store(StoreClientRequest $request): RedirectResponse
     {
-        Client::create($request->clientPayload());
+        $payload = $request->clientPayload();
+        $payload['created_by'] = $request->user()->id; // tracking saja
+        Client::create($payload);
 
         return redirect()->route('clients.index')->with('success', 'Client berhasil ditambahkan.');
     }
@@ -80,3 +90,4 @@ class ClientController extends Controller
         return redirect()->route('clients.show', $client)->with('success', 'Client berhasil diupdate.');
     }
 }
+
