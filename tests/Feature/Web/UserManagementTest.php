@@ -41,6 +41,7 @@ class UserManagementTest extends TestCase
 
         $response = $this->actingAs($superadmin)->post('/users', [
             'name' => 'User Baru',
+            'username' => 'userbaru',
             'email' => 'baru@example.test',
             'role' => 'sales',
             'password' => 'passwordBaru123',
@@ -50,6 +51,7 @@ class UserManagementTest extends TestCase
         $response->assertRedirect('/users');
 
         $this->assertDatabaseHas('users', [
+            'username' => 'userbaru',
             'email' => 'baru@example.test',
             'role' => 'sales',
         ]);

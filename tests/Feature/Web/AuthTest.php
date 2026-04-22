@@ -22,18 +22,19 @@ class AuthTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertOk();
-        $response->assertSee('Login CRM295');
+        $response->assertSee('Masuk ke Akun');
     }
 
     public function test_user_can_login_with_valid_credentials(): void
     {
         $user = User::factory()->create([
+            'username' => 'secure-user',
             'email' => 'secure@example.test',
             'password' => 'secret12345',
         ]);
 
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'username' => $user->username,
             'password' => 'secret12345',
         ]);
 
@@ -44,17 +45,18 @@ class AuthTest extends TestCase
     public function test_login_fails_with_invalid_credentials(): void
     {
         User::factory()->create([
+            'username' => 'secure-user',
             'email' => 'secure@example.test',
             'password' => 'secret12345',
         ]);
 
         $response = $this->from('/login')->post('/login', [
-            'email' => 'secure@example.test',
+            'username' => 'secure-user',
             'password' => 'wrong-password',
         ]);
 
         $response->assertRedirect('/login');
-        $response->assertSessionHasErrors('email');
+        $response->assertSessionHasErrors('username');
         $this->assertGuest();
     }
 

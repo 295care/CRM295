@@ -61,6 +61,11 @@
                     </div>
 
                     <div>
+                        <label for="username">Username</label>
+                        <input id="username" type="text" name="username" value="{{ old('username', $userModel->username) }}" required>
+                    </div>
+
+                    <div>
                         <label for="role">Role</label>
                         <select id="role" name="role" required>
                             @foreach (['superadmin', 'admin', 'sales'] as $role)
